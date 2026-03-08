@@ -102,3 +102,12 @@ InitTestScene*.unity*
 # OS
 .DS_Store
 Thumbs.db
+
+Library/
+Temp/
+Obj/
+Build/
+Logs/
+.vs/
+# User-specific Unity settings
+UserSettings/
