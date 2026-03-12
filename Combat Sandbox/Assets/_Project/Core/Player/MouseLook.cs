@@ -4,8 +4,9 @@ public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
+    private float yRotation = 0f;
+    private float xRotation = 0f;
 
-    float xRotation = 0f;
 
     private void Start()
     {
@@ -14,13 +15,15 @@ public class MouseLook : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float leftRightDelta = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float upDownDelta = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation += leftRightDelta;
+        yRotation -= upDownDelta;
+        yRotation = Mathf.Clamp(yRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+        Vector3 inputRotationVec3 = new Vector3(upDownDelta, leftRightDelta, 0f);
+
+        transform.localRotation = Quaternion.Euler(yRotation,xRotation,0);
     }
 }
